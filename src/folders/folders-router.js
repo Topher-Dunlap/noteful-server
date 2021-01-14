@@ -11,15 +11,8 @@ foldersRouter
         FoldersService.getAllFolders(
             req.app.get('db'),
         )
-            .then(folder => {
-                if (xss(folder.title) === '') {
-                    res.json([])
-                }
-                else {
-                    res.json({
-                        title: xss(folder.title), // sanitize title
-                    })
-                }
+            .then(folders => {
+                    res.json(folders)
             })
             .catch(next)
     })

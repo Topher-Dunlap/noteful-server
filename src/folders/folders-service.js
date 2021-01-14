@@ -1,6 +1,5 @@
 const FoldersService = {
     getAllFolders(knex) {
-        console.log("inside getAll")
         return knex.select('*').from('noteful_folders')
     },
 

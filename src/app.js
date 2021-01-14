@@ -18,7 +18,7 @@ app.use(cors())
 
 app.use('/api/folders/', foldersRouter)
 
-app.get('/noteful', (req, res) => {
+app.get('/', (req, res) => {
     res.send("Hello, world!")
 })
 
