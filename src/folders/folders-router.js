@@ -12,15 +12,18 @@ foldersRouter
             req.app.get('db'),
         )
             .then(folders => {
-                    res.json(folders)
+                for (let folder of folders){
+                    folder.id = folder.id + ""
+                }
+                res.json(folders)
             })
             .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
 
         console.log("inside POST")
-        const { title } = req.body
-        const newFolder = {title}
+        const { name } = req.body
+        const newFolder = {name}
 
         for (const [key, value] of Object.entries(newFolder)) {
             if (value == null) {
@@ -39,7 +42,28 @@ foldersRouter
                     .status(201)
                     .location(`/folders/${folder.id}`)
                 res.json({
-                    title: xss(folder.title), // sanitize title
+                    name: xss(folder.name), // sanitize name
+                })
+            })
+            .catch(next)
+    })
+
+foldersRouter
+    .route('/:folderId')
+    .all( (req, res, next) => {
+        FoldersService.getById(
+            req.app.get('db'),
+            req.params.folderId
+        )
+            .then(folder => {
+                if (!folder) {
+                    return res.status(404).json({
+                        error: { message: `Folder doesn't exist` }
+                    })
+                }
+                res.json({
+                    id: folder.id,
+                    name: folder.name,
                 })
             })
             .catch(next)
