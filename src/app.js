@@ -26,11 +26,12 @@ app.get('/', (req, res) => {
     res.send("Hello, world!")
 })
 
- app.use(function errorHandler(error, req, res, next) {
+ app.use(function errorHandler(xhr, error, req, res, next) {
      let response
      if (NODE_ENV === 'production') {
          response = { error: { message: 'server error' } }
      } else {
+         console.warn(xhr)
          console.error(error)
          response = { message: error.message, error }
      }
