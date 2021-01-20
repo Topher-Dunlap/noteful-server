@@ -75,7 +75,7 @@ notesRouter
             .catch(next)
     })
     .delete((req, res, next) => {
-        console.log("inside NoteService.deleteNote notes-router", req.params.note_id)
+        console.log("inside .delete notes-router", req.params.note_id)
         NotesService.deleteNote(
             req.app.get('db'),
             req.params.note_id
