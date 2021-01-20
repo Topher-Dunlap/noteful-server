@@ -12,7 +12,10 @@ notesRouter
             req.app.get('db'),
         )
             .then(notes => {
-
+                for (let note of notes){
+                    note.id = note.id + ""
+                    note.folder_id = note.folder_id + ""
+                }
                 res.json(notes)
             })
 
