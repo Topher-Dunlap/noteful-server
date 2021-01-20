@@ -76,9 +76,11 @@ notesRouter
     })
     .delete((req, res, next) => {
         NotesService.deleteNote(
+            console.log("inside NoteService.deleteNote notes-router", req.params.note_id),
+        )
+        NotesService.deleteNote(
             req.app.get('db'),
-            req.params.note_id,
-            console.log("inside NoteService.deleteNote notes-router, server", req.params.note_id)
+            req.params.note_id
         )
             .then(numRowsAffected => {
                 res.status(204).end()
