@@ -64,13 +64,15 @@ notesRouter
                         error: { message: `Note doesn't exist` }
                     })
                 }
-                res.json({
-                    id: note.id,
-                    name: note.name,
-                    content: note.content,
-                    modified: note.modified,
-                    folder_id: note.folder_id
-                })
+                res.note = note
+                next()
+                // res.json({
+                //     id: note.id,
+                //     name: note.name,
+                //     content: note.content,
+                //     modified: note.modified,
+                //     folder_id: note.folder_id
+                // })
             })
             .catch(next)
     })
